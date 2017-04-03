@@ -22,7 +22,7 @@ import static org.mockito.Mockito.verify;
 
 
 @RunWith(PowerMockRunner.class)
-@PrepareForTest(ConfigurationLoader.class)
+@PrepareForTest({ConfigurationLoader.class, NewsReaderFactory.class})
 public class NewsLoaderTest {
 	
 	private IncomingNews incomingNews = new IncomingNews();
