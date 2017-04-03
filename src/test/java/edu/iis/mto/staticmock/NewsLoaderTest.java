@@ -1,4 +1,4 @@
-package lab3_2;
+package edu.iis.mto.staticmock;
 
 import static org.junit.Assert.*;
 
