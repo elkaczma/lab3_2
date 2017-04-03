@@ -9,6 +9,8 @@ import org.mockito.internal.util.reflection.Whitebox;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
+import edu.iis.mto.staticmock.reader.NewsReader;
+
 import static org.powermock.api.mockito.PowerMockito.*;
 import static org.mockito.Mockito.when;
 import static org.mockito.Mockito.verify;
@@ -42,6 +44,9 @@ public class NewsLoaderTest {
 		incomingNews.add(incomingInfo2);
 		incomingNews.add(incomingInfo3);
 		incomingNews.add(incomingInfo4);
+		
+		NewsReader mockedNewsReader = mock(NewsReader.class);
+		when(mockedNewsReader.read()).thenReturn(incomingNews);
 	}
 
 	@Test
