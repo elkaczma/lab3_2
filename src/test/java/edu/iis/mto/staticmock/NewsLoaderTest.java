@@ -53,8 +53,8 @@ public class NewsLoaderTest {
 	}
 
 	@Test
-	public void test() {
-		fail("Not yet implemented");
+	public void testLoadNewsShouldHaveTwoPublicInfoAndThreeInfoForSubscription() {
+		PublishableNews publishableNews = prepareForPublish(incomingNews);
 	}
 
 }
