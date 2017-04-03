@@ -47,6 +47,9 @@ public class NewsLoaderTest {
 		
 		NewsReader mockedNewsReader = mock(NewsReader.class);
 		when(mockedNewsReader.read()).thenReturn(incomingNews);
+		
+		mockStatic(NewsReaderFactory.class);
+		when(NewsReaderFactory.getReader(readerTypeValue)).thenReturn(mockedNewsReader);
 	}
 
 	@Test
