@@ -14,11 +14,19 @@ import static org.mockito.Mockito.verify;
 
 
 @RunWith(PowerMockRunner.class)
-@PrepareForTest()
+@PrepareForTest(ConfigurationLoader.class)
 public class NewsLoaderTest {
 
 	@Before
 	public void setUp() throws Exception {
+		
+		Configuration configuration = new Configuration();
+		
+		mockStatic(ConfigurationLoader.class);
+		ConfigurationLoader mockedConfigurationLoader = mock(ConfigurationLoader.class);
+		when(mockedConfigurationLoader.getInstance()).thenReturn(mockedConfigurationLoader);
+		when(mockedConfigurationLoader.loadConfiguration()).thenReturn(configuration);
+		
 	}
 
 	@Test
