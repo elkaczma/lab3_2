@@ -1,7 +1,9 @@
 package edu.iis.mto.staticmock;
 
 import static org.junit.Assert.*;
+import static org.hamcrest.Matchers.*;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -12,6 +14,9 @@ import org.powermock.modules.junit4.PowerMockRunner;
 import edu.iis.mto.staticmock.reader.NewsReader;
 
 import static org.powermock.api.mockito.PowerMockito.*;
+
+import java.util.List;
+
 import static org.mockito.Mockito.when;
 import static org.mockito.Mockito.verify;
 
@@ -55,7 +60,15 @@ public class NewsLoaderTest {
 
 	@Test
 	public void testLoadNewsShouldHaveTwoPublicInfoAndThreeInfoForSubscription() {
-		PublishableNews publishableNews = prepareForPublish(incomingNews);
+		
+		NewsLoader newsLoader = new NewsLoader();
+		PublishableNews publishableNews = newsLoader.loadNews();
+		
+		List<String> publicContent = (List<String>) Whitebox.getInternalState(publishableNews, "publicContent");
+		Assert.assertThat(publicContent.size(), is(equalTo(2)));
+		
+		List<String> subscribentContent = (List<String>) Whitebox.getInternalState(publishableNews, "subscribentContent");
+		Assert.assertThat(subscribentContent.size(), is(equalTo(3)));
 	}
 
 }
