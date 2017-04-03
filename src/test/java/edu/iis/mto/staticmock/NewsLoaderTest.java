@@ -19,7 +19,14 @@ import static org.mockito.Mockito.verify;
 @RunWith(PowerMockRunner.class)
 @PrepareForTest(ConfigurationLoader.class)
 public class NewsLoaderTest {
-
+	
+	private IncomingNews incomingNews = new IncomingNews();
+	private final IncomingInfo incomingInfo0 = new IncomingInfo("incomingInfo0",SubsciptionType.A);
+	private final IncomingInfo incomingInfo1 = new IncomingInfo("incomingInfo1",SubsciptionType.B);
+	private final IncomingInfo incomingInfo2 = new IncomingInfo("incomingInfo2",SubsciptionType.C);
+	private final IncomingInfo incomingInfo3 = new IncomingInfo("incomingInfo3",SubsciptionType.NONE);
+	private final IncomingInfo incomingInfo4 = new IncomingInfo("incomingInfo4",SubsciptionType.NONE);
+	
 	@Before
 	public void setUp() throws Exception {
 		
@@ -33,12 +40,6 @@ public class NewsLoaderTest {
 		Whitebox.setInternalState(configuration, "readerType", readerTypeValue);
 		when(mockedConfigurationLoader.loadConfiguration()).thenReturn(configuration);
 		
-		IncomingNews incomingNews = new IncomingNews();
-		IncomingInfo incomingInfo0 = new IncomingInfo("incomingInfo0",SubsciptionType.A);
-		IncomingInfo incomingInfo1 = new IncomingInfo("incomingInfo1",SubsciptionType.B);
-		IncomingInfo incomingInfo2 = new IncomingInfo("incomingInfo2",SubsciptionType.C);
-		IncomingInfo incomingInfo3 = new IncomingInfo("incomingInfo3",SubsciptionType.NONE);
-		IncomingInfo incomingInfo4 = new IncomingInfo("incomingInfo4",SubsciptionType.NONE);
 		incomingNews.add(incomingInfo0);
 		incomingNews.add(incomingInfo1);
 		incomingNews.add(incomingInfo2);
