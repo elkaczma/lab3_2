@@ -30,6 +30,18 @@ public class NewsLoaderTest {
 		String readerTypeValue = "testedReader";
 		Whitebox.setInternalState(configuration, "readerType", readerTypeValue);
 		when(mockedConfigurationLoader.loadConfiguration()).thenReturn(configuration);
+		
+		IncomingNews incomingNews = new IncomingNews();
+		IncomingInfo incomingInfo0 = new IncomingInfo("incomingInfo0",SubsciptionType.A);
+		IncomingInfo incomingInfo1 = new IncomingInfo("incomingInfo1",SubsciptionType.B);
+		IncomingInfo incomingInfo2 = new IncomingInfo("incomingInfo2",SubsciptionType.C);
+		IncomingInfo incomingInfo3 = new IncomingInfo("incomingInfo3",SubsciptionType.NONE);
+		IncomingInfo incomingInfo4 = new IncomingInfo("incomingInfo4",SubsciptionType.NONE);
+		incomingNews.add(incomingInfo0);
+		incomingNews.add(incomingInfo1);
+		incomingNews.add(incomingInfo2);
+		incomingNews.add(incomingInfo3);
+		incomingNews.add(incomingInfo4);
 	}
 
 	@Test
