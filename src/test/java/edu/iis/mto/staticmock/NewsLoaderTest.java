@@ -33,18 +33,23 @@ public class NewsLoaderTest {
 	private final IncomingInfo incomingInfo3 = new IncomingInfo("incomingInfo3",SubsciptionType.NONE);
 	private final IncomingInfo incomingInfo4 = new IncomingInfo("incomingInfo4",SubsciptionType.NONE);
 	
+	private Configuration configuration;
+	private ConfigurationLoader mockedConfigurationLoader;
+	
 	private NewsReader mockedNewsReader;
+	private String readerTypeValue = "testedReader";
+	
+	private NewsLoader newsLoader;
 	
 	@Before
 	public void setUp() throws Exception {
 		
-		Configuration configuration = new Configuration();
+		configuration = new Configuration();
 		
 		mockStatic(ConfigurationLoader.class);
-		ConfigurationLoader mockedConfigurationLoader = mock(ConfigurationLoader.class);
+		mockedConfigurationLoader = mock(ConfigurationLoader.class);
 		when(mockedConfigurationLoader.getInstance()).thenReturn(mockedConfigurationLoader);
 		
-		String readerTypeValue = "testedReader";
 		Whitebox.setInternalState(configuration, "readerType", readerTypeValue);
 		when(mockedConfigurationLoader.loadConfiguration()).thenReturn(configuration);
 		
@@ -59,12 +64,13 @@ public class NewsLoaderTest {
 		
 		mockStatic(NewsReaderFactory.class);
 		when(NewsReaderFactory.getReader(readerTypeValue)).thenReturn(mockedNewsReader);
+		
+		newsLoader = new NewsLoader();
 	}
 
 	@Test
 	public void testLoadNewsShouldHaveTwoPublicInfoAndThreeInfoForSubscription() {
 		
-		NewsLoader newsLoader = new NewsLoader();
 		PublishableNews publishableNews = newsLoader.loadNews();
 		
 		List<String> publicContent = (List<String>) Whitebox.getInternalState(publishableNews, "publicContent");
@@ -77,7 +83,6 @@ public class NewsLoaderTest {
 	@Test
 	public void testReadMethodShouldBeInvokedOnce() {
 		
-		NewsLoader newsLoader = new NewsLoader();
 		PublishableNews publishableNews = newsLoader.loadNews();
 		
 		verify(mockedNewsReader, times(1)).read();
