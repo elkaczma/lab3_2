@@ -70,5 +70,10 @@ public class NewsLoaderTest {
 		List<String> subscribentContent = (List<String>) Whitebox.getInternalState(publishableNews, "subscribentContent");
 		Assert.assertThat(subscribentContent.size(), is(equalTo(3)));
 	}
-
+	
+	@Test
+	public void testReadShouldBeInvokedOnce() {
+		
+	}
+	
 }
