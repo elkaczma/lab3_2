@@ -19,6 +19,7 @@ import java.util.List;
 
 import static org.mockito.Mockito.when;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.times;
 
 
 @RunWith(PowerMockRunner.class)
@@ -31,6 +32,8 @@ public class NewsLoaderTest {
 	private final IncomingInfo incomingInfo2 = new IncomingInfo("incomingInfo2",SubsciptionType.C);
 	private final IncomingInfo incomingInfo3 = new IncomingInfo("incomingInfo3",SubsciptionType.NONE);
 	private final IncomingInfo incomingInfo4 = new IncomingInfo("incomingInfo4",SubsciptionType.NONE);
+	
+	private NewsReader mockedNewsReader;
 	
 	@Before
 	public void setUp() throws Exception {
@@ -51,7 +54,7 @@ public class NewsLoaderTest {
 		incomingNews.add(incomingInfo3);
 		incomingNews.add(incomingInfo4);
 		
-		NewsReader mockedNewsReader = mock(NewsReader.class);
+		mockedNewsReader = mock(NewsReader.class);
 		when(mockedNewsReader.read()).thenReturn(incomingNews);
 		
 		mockStatic(NewsReaderFactory.class);
@@ -72,8 +75,12 @@ public class NewsLoaderTest {
 	}
 	
 	@Test
-	public void testReadShouldBeInvokedOnce() {
+	public void testReadMethodShouldBeInvokedOnce() {
 		
+		NewsLoader newsLoader = new NewsLoader();
+		PublishableNews publishableNews = newsLoader.loadNews();
+		
+		verify(mockedNewsReader, times(1)).read();
 	}
 	
 }
